@@ -6,11 +6,13 @@ JAC::Setup - Set up @INC, environment variables, etc., for use at JAC.
 
 =head1 SYNOPSIS
 
-  use JAC::SetPath qw/ omp oracdr /;
+  use JAC::Setup qw/ omp oracdr /;
 
 =head1 DESCRIPTION
 
-This module configures the Perl include path (@INC global) to include the standard installation locations of JAC Perl modules. It also sets environment variables depending on which system is requested.
+This module configures the Perl include path (@INC global) to include
+the standard installation locations of JAC Perl modules. It also sets
+environment variables depending on which system is requested.
 
 There are no functions or methods at this time.
 
