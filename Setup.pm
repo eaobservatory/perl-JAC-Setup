@@ -34,7 +34,7 @@ use strict;
 use warnings;
 
 my %INC_LOCATIONS = ( 'omp' => '/jac_sw/omp/msbserver',
-                      'oracdr' => '/jac_sw/oracdr/src/perl5/lib',
+                      'oracdr' => '/star/bin/oracdr/src/lib/perl5',
                     );
 my %ENVIRONMENT = ( 'omp' => { 'OMP_CFG_DIR' => '/jac_sw/omp/msbserver/cfg' },
                     'sybase' => { 'SYBASE' => '/local/progs/sybase' },
