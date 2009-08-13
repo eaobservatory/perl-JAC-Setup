@@ -37,6 +37,8 @@ our $VERSION = '0.01';
 
 my %INC_LOCATIONS = ( 'omp' => '/jac_sw/omp/msbserver',
                       'oracdr' => '/star/bin/oracdr/src/lib/perl5',
+                      'its' => '/jac_sw/itsroot/install/common/lib/site_perl',
+                      'drama' => '/jac_sw/drama/CurrentRelease/lib/site_perl',
                     );
 my %ENVIRONMENT = ( 'omp' => { 'OMP_CFG_DIR' => '/jac_sw/omp/msbserver/cfg' },
                     'sybase' => { 'SYBASE' => '/local/progs/sybase' },
