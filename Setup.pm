@@ -46,6 +46,7 @@ Add ITS search paths.
 
 use strict;
 use warnings;
+use warnings::register;
 
 our $VERSION = '0.01';
 
@@ -63,15 +64,21 @@ sub import {
   my @imports = @_;
 
   foreach my $import ( @imports ) {
+    my $found = 0;
     if( exists $INC_LOCATIONS{$import} ) {
+      $found = 1;
       eval "use lib '$INC_LOCATIONS{$import}';";
     }
     if( exists $ENVIRONMENT{$import} ) {
+      $found = 1;
       foreach my $key ( keys %{$ENVIRONMENT{$import}} ) {
         if( ! exists( $ENV{$key} ) ) {
           $ENV{$key} = $ENVIRONMENT{$import}{$key};
         }
       }
+    }
+    if (!$found) {
+      warnings::warnif( "Unrecognized key '$import' for JAC::Setup" );
     }
   }
 }
