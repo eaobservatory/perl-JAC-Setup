@@ -20,11 +20,25 @@ Available symbols are:
 
 =over 4
 
-=item omp
+=item * omp
 
-=item oracdr
+Add the standard OMP location.
 
-=item sybase
+=item * oracdr
+
+Add the standard ORAC-DR library location.
+
+=item * sybase
+
+Set the Sybase environment variable to an appropriate value.
+
+=item * drama
+
+Add ITS DRAMA search path
+
+=item * its
+
+Add ITS search paths.
 
 =back
 
@@ -61,6 +75,32 @@ sub import {
     }
   }
 }
+
+=head1 AUTHORS
+
+Brad Cavanagh E<lt>b.cavanagh@jach.hawaii.eduE<gt>,
+Tim Jenness E<lt>t.jenness@jach.hawaii.eduE<gt>.
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009 Science and Technology Facilities Council.
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 3 of
+the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be
+useful, but WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public
+License along with this program; if not, write to the Free
+Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+MA 02111-1307, USA
+
+=cut
 
 1;
 
