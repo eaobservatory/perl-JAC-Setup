@@ -1,0 +1,4 @@
+Makefile.PL
+Setup.pm
+MANIFEST
+t/00load.t
