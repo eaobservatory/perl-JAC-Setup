@@ -33,6 +33,8 @@ Available symbols are:
 use strict;
 use warnings;
 
+our $VERSION = '0.01';
+
 my %INC_LOCATIONS = ( 'omp' => '/jac_sw/omp/msbserver',
                       'oracdr' => '/star/bin/oracdr/src/lib/perl5',
                     );
