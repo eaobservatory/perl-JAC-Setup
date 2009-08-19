@@ -52,7 +52,7 @@ use strict;
 use warnings;
 use warnings::register;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 my %INC_LOCATIONS = ( 'omp' => '/jac_sw/omp/msbserver',
                       'oracdr' => '/star/bin/oracdr/src/lib/perl5',
