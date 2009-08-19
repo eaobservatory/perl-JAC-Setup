@@ -22,15 +22,19 @@ Available symbols are:
 
 =item * omp
 
-Add the standard OMP location.
+Add the standard OMP location. Can be over-ridden by setting the
+OMP_DIR envrionment variable. The OMP_CFG_DIR environment variable
+is also set if not already specified.
 
 =item * oracdr
 
-Add the standard ORAC-DR library location.
+Add the standard ORAC-DR library location. Can be over-ridden by setting
+the ORAC_PERL5LIB environment variable.
 
 =item * sybase
 
-Set the Sybase environment variable to an appropriate value.
+Set the SYBASE environment variable to an appropriate value if not already
+set.
 
 =item * drama
 
@@ -51,16 +55,23 @@ Adds the JAC archiving tree
 use strict;
 use warnings;
 use warnings::register;
+use File::Spec;
 
-our $VERSION = '0.02';
+our $DEBUG = 0;
+our $VERSION = '0.03';
 
-my %INC_LOCATIONS = ( 'omp' => '/jac_sw/omp/msbserver',
-                      'oracdr' => '/star/bin/oracdr/src/lib/perl5',
+my %DEFAULT_INC_LOCATIONS = (
+                             'oracdr' => '/star/bin/oracdr/src/lib/perl5',
+                             'omp' => '/jac_sw/omp/msbserver',
+                            );
+
+my %INC_LOCATIONS = ( 'omp' => \&override_omp_inc,
+                      'oracdr' => \&override_oracdr_inc,
                       'its' => '/jac_sw/itsroot/install/common/lib/site_perl',
                       'drama' => '/jac_sw/drama/CurrentRelease/lib/site_perl',
                       'archiving' => '/jac_sw/archiving/perlmods/JCMT-DataVerify/lib',
                     );
-my %ENVIRONMENT = ( 'omp' => { 'OMP_CFG_DIR' => '/jac_sw/omp/msbserver/cfg' },
+my %ENVIRONMENT = ( 'omp' => { 'OMP_CFG_DIR' => \&override_omp_env },
                     'sybase' => { 'SYBASE' => '/local/progs/sybase' },
                   );
 
@@ -72,13 +83,20 @@ sub import {
     my $found = 0;
     if( exists $INC_LOCATIONS{$import} ) {
       $found = 1;
-      eval "use lib '$INC_LOCATIONS{$import}';";
+      # check for environment variable
+      my $dir = $INC_LOCATIONS{$import};
+      $dir = $dir->() if ref($dir);
+      print STDERR "Setting up $import to be: $dir\n" if $DEBUG;
+      eval "use lib '$dir';";
     }
     if( exists $ENVIRONMENT{$import} ) {
       $found = 1;
       foreach my $key ( keys %{$ENVIRONMENT{$import}} ) {
-        if( ! exists( $ENV{$key} ) ) {
-          $ENV{$key} = $ENVIRONMENT{$import}{$key};
+        if( ! exists( $ENV{$key} ) ) { # only continue if not set explicitly
+          my $dir = $ENVIRONMENT{$import}{$key};
+          $dir = $dir->() if ref($dir);
+          print STDERR "Setting up $import env var to be: $dir\n" if $DEBUG;
+          $ENV{$key} = $dir;
         }
       }
     }
@@ -86,6 +104,33 @@ sub import {
       warnings::warnif( "Unrecognized key '$import' for JAC::Setup" );
     }
   }
+}
+
+# Override subroutines for subsystems that can be configured
+# based on the environment.
+
+sub override_oracdr_inc {
+  if (exists $ENV{ORAC_PERL5LIB}) {
+    return $ENV{ORAC_PERL5LIB};
+  } elsif (exists $ENV{ORAC_DIR}) {
+    return File::Spec->catdir($ENV{ORAC_DIR}, "lib", "perl5");
+  } else {
+    return $DEFAULT_INC_LOCATIONS{oracdr};
+  }
+}
+
+sub override_omp_inc {
+  if (exists $ENV{OMP_DIR}) {
+    return $ENV{OMP_DIR};
+  } else {
+    return $DEFAULT_INC_LOCATIONS{omp};
+  }
+}
+
+# Called if the environment variable has not been set
+sub override_omp_env {
+  my $omp_dir = override_omp_inc();
+  return File::Spec->catdir( $omp_dir, "cfg" );
 }
 
 =head1 AUTHORS

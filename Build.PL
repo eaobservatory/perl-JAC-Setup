@@ -38,6 +38,9 @@ my $build = Module::Build->new
                               repository => "/jac_sw/gitroot/perl-JAC-Setup.git",
                              },
                 },
+   requires => {
+                'File::Spec' => 0,
+               },
    build_requires => {
                       'Test::More' => 0,
                      },
