@@ -1,4 +1,5 @@
-Makefile.PL
+Build.PL
+MANIFEST			This list of files
+MANIFEST.SKIP
 Setup.pm
-MANIFEST
 t/00load.t
