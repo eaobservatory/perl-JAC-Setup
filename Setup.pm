@@ -40,6 +40,10 @@ Add ITS DRAMA search path
 
 Add ITS search paths.
 
+=item * archiving
+
+Adds the JAC archiving tree
+
 =back
 
 =cut
@@ -54,6 +58,7 @@ my %INC_LOCATIONS = ( 'omp' => '/jac_sw/omp/msbserver',
                       'oracdr' => '/star/bin/oracdr/src/lib/perl5',
                       'its' => '/jac_sw/itsroot/install/common/lib/site_perl',
                       'drama' => '/jac_sw/drama/CurrentRelease/lib/site_perl',
+                      'archiving' => '/jac_sw/archiving/perlmods/JCMT-DataVerify/lib',
                     );
 my %ENVIRONMENT = ( 'omp' => { 'OMP_CFG_DIR' => '/jac_sw/omp/msbserver/cfg' },
                     'sybase' => { 'SYBASE' => '/local/progs/sybase' },
