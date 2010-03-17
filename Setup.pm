@@ -70,6 +70,7 @@ my %INC_LOCATIONS = ( 'omp' => \&override_omp_inc,
                       'its' => '/jac_sw/itsroot/install/common/lib/site_perl',
                       'drama' => '/jac_sw/drama/CurrentRelease/lib/site_perl',
                       'archiving' => '/jac_sw/archiving/perlmods/JCMT-DataVerify/lib',
+                      'jsa' => '/jac_sw/perl-JSA-git/lib',
                     );
 my %ENVIRONMENT = ( 'omp' => { 'OMP_CFG_DIR' => \&override_omp_env },
                     'sybase' => { 'SYBASE' => '/local/progs/sybase' },
