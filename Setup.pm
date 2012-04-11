@@ -72,7 +72,7 @@ use warnings::register;
 use File::Spec;
 
 our $DEBUG = 0;
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 my %DEFAULT_INC_LOCATIONS = (
                              'oracdr' => '/star/bin/oracdr/src/lib/perl5',
