@@ -52,6 +52,18 @@ Adds the JAC archiving tree
 
 Sets alternative lib path for JSA::* modules.
 
+=item * star-dynlib
+
+Prepends dynamic library paths for /star libraries in LD_LIBRARY_PATH
+environment variable.
+
+=item * sybase-dynlib
+
+Appends dynamic library paths for Sybase libraries in LD_LIBRARY_PATH
+environment variable.
+
+=back
+
 =cut
 
 use strict;
@@ -74,9 +86,27 @@ my %INC_LOCATIONS = ( 'omp' => \&override_omp_inc,
                       'archiving' => '/jac_sw/archiving/perlmods/JCMT-DataVerify/lib',
                       'jsa' => '/jac_sw/hlsroot/perl-JSA/lib',
                     );
+
+my @DYNLIB_STAR =
+  ( '/star/lib',
+  );
+my @DYNLIB_SYB =
+  ( '/local/progs/sybase/lib',
+  );
+
 my %ENVIRONMENT = ( 'omp' => { 'OMP_CFG_DIR' => \&override_omp_env },
                     'sybase' => { 'SYBASE' => '/local/progs/sybase' },
                   );
+
+my %ADD_ENVIRONMENT = ( 'star-dynlib'   =>
+                          { 'LD_LIBRARY_PATH' =>
+                              sub { add_ld_lib_path( \@DYNLIB_STAR ) }
+                          },
+                        'sybase-dynlib' =>
+                          { 'LD_LIBRARY_PATH' =>
+                              sub { add_ld_lib_path( undef, @DYNLIB_SYB ) }
+                          },
+                      );
 
 sub import {
   my $class = shift;
@@ -103,6 +133,17 @@ sub import {
         }
       }
     }
+
+    if( exists $ADD_ENVIRONMENT{$import} ) {
+      $found = 1;
+      foreach my $key ( keys %{$ADD_ENVIRONMENT{$import}} ) {
+        my $dir = $ADD_ENVIRONMENT{$import}{$key};
+        $dir = $dir->() if ref($dir);
+        print STDERR "Adding $import env var to be: $dir\n" if $DEBUG;
+        $ENV{$key} = $dir;
+      }
+    }
+
     if (!$found) {
       warnings::warnif( "Unrecognized key '$import' for JAC::Setup" );
     }
@@ -136,14 +177,32 @@ sub override_omp_env {
   return File::Spec->catdir( $omp_dir, "cfg" );
 }
 
+
+# Add dynamic library paths, before and/or after the any of existing ones,
+sub add_ld_lib_path {
+
+  my ( $prefix, @suffix ) = @_;
+
+  my @prefix = ( $prefix && ref $prefix ? @{ $prefix } : () );
+
+  my %seen;
+  return
+    join ':',
+      grep !$seen{ $_ }++,
+        @prefix,
+        split( ':', $ENV{'LD_LIBRARY_PATH'} ),
+        @suffix;
+}
+
 =head1 AUTHORS
 
+Anubhav Agarwal E<lt>a.agarwal@jach.hawaii.eduE<gt>,
 Brad Cavanagh E<lt>b.cavanagh@jach.hawaii.eduE<gt>,
 Tim Jenness E<lt>t.jenness@jach.hawaii.eduE<gt>.
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Science and Technology Facilities Council.
+Copyright (C) 2009-2010, 2012 Science and Technology Facilities Council.
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
