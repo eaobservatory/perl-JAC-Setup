@@ -23,7 +23,7 @@ Available symbols are:
 =item * omp
 
 Add the standard OMP location. Can be over-ridden by setting the
-OMP_DIR envrionment variable. The OMP_CFG_DIR environment variable
+OMP_DIR environment variable. The OMP_CFG_DIR environment variable
 is also set if not already specified.
 
 =item * oracdr
