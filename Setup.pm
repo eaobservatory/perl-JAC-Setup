@@ -114,6 +114,7 @@ sub import {
 
   foreach my $import ( @imports ) {
     my $found = 0;
+
     if( exists $INC_LOCATIONS{$import} ) {
       $found = 1;
       # check for environment variable
@@ -122,6 +123,7 @@ sub import {
       print STDERR "Setting up $import to be: $dir\n" if $DEBUG;
       eval "use lib '$dir';";
     }
+
     if( exists $ENVIRONMENT{$import} ) {
       $found = 1;
       foreach my $key ( keys %{$ENVIRONMENT{$import}} ) {
