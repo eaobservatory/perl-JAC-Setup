@@ -35,7 +35,7 @@ my $build = Module::Build->new
    dist_version_from => 'Setup.pm',
    meta_merge => {
                resources =>  {
-                              repository => "ssh://ssh.jach.hawaii.edu/jac_sw/gitroot/perl-JAC-Setup.git",
+                              repository => "git://github.com/eaobservatory/perl-JAC-Setup.git",
                              },
                 },
    requires => {
