@@ -1,5 +1,5 @@
 Build.PL
 MANIFEST			This list of files
 MANIFEST.SKIP
-Setup.pm
+lib/JAC/Setup.pm
 t/00load.t

@@ -31,8 +31,6 @@ my $build = Module::Build->new
                    'Brad Cavanagh <b.cavanagh@jach.hawaii.edu>',
                    'Tim Jenness <t.jenness@jach.hawaii.edu>',
                   ],
-   pm_files => { 'Setup.pm' => "lib/JAC/Setup.pm" },
-   dist_version_from => 'Setup.pm',
    meta_merge => {
                resources =>  {
                               repository => "git://github.com/eaobservatory/perl-JAC-Setup.git",
