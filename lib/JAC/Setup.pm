@@ -52,6 +52,18 @@ Adds the JAC archiving tree
 
 Sets alternative lib path for JSA::* modules.
 
+=item * ocsq
+
+Adds OCS queue library path.
+
+=item * ocscfg
+
+Adds OCS config library path.
+
+=item * errexit
+
+Adds "JAC::ErrExit" library path.
+
 =item * star-dynlib
 
 Prepends dynamic library paths for /star libraries in LD_LIBRARY_PATH
@@ -72,7 +84,7 @@ use warnings::register;
 use File::Spec;
 
 our $DEBUG = 0;
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 my %DEFAULT_INC_LOCATIONS = (
                              'oracdr' => '/star/bin/oracdr/src/lib/perl5',
@@ -85,6 +97,9 @@ my %INC_LOCATIONS = ( 'omp' => \&override_omp_inc,
                       'drama' => '/jac_sw/drama/CurrentRelease/lib/site_perl',
                       'archiving' => '/jac_sw/hlsroot/perl-JCMT-DataVerify/lib',
                       'jsa' => '/jac_sw/hlsroot/perl-JSA/lib',
+                      'ocsq' => '/jac_sw/hlsroot/ocsq/lib',
+                      'ocscfg' => '/jac_sw/hlsroot/OCScfg/lib',
+                      'errexit' => '/jac_sw/hlsroot/perl-JAC-ErrExit/lib',
                     );
 
 my @DYNLIB_STAR =
