@@ -83,7 +83,7 @@ my %INC_LOCATIONS = ( 'omp' => \&override_omp_inc,
                       'oracdr' => \&override_oracdr_inc,
                       'its' => '/jac_sw/itsroot/install/common/lib/site_perl',
                       'drama' => '/jac_sw/drama/CurrentRelease/lib/site_perl',
-                      'archiving' => '/jac_sw/archiving/perlmods/JCMT-DataVerify/lib',
+                      'archiving' => '/jac_sw/hlsroot/perl-JCMT-DataVerify/lib',
                       'jsa' => '/jac_sw/hlsroot/perl-JSA/lib',
                     );
 
