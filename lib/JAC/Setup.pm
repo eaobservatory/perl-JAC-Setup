@@ -48,6 +48,10 @@ Add ITS search paths.
 
 Adds the JAC archiving tree
 
+=item * hdrtrans
+
+Sets alternative library path for the Astro::FITS::HdrTrans.
+
 =item * jsa
 
 Sets alternative lib path for JSA::* modules.
@@ -92,6 +96,7 @@ my %INC_LOCATIONS = ( 'omp' => \&override_omp_inc,
                       'its' => '/jac_sw/itsroot/install/common/lib/site_perl',
                       'drama' => '/jac_sw/drama/CurrentRelease/lib/site_perl',
                       'archiving' => '/jac_sw/hlsroot/perl-JCMT-DataVerify/lib',
+                      'hdrtrans' => '/jac_sw/hlsroot/perl-Astro-FITS-HdrTrans/lib',
                       'jsa' => '/jac_sw/hlsroot/perl-JSA/lib',
                       'ocsq' => '/jac_sw/hlsroot/ocsq/lib',
                       'ocscfg' => '/jac_sw/hlsroot/OCScfg/lib',
