@@ -60,10 +60,6 @@ Adds OCS queue library path.
 
 Adds OCS config library path.
 
-=item * errexit
-
-Adds "JAC::ErrExit" library path.
-
 =item * star-dynlib
 
 Prepends dynamic library paths for /star libraries in LD_LIBRARY_PATH
@@ -99,7 +95,6 @@ my %INC_LOCATIONS = ( 'omp' => \&override_omp_inc,
                       'jsa' => '/jac_sw/hlsroot/perl-JSA/lib',
                       'ocsq' => '/jac_sw/hlsroot/ocsq/lib',
                       'ocscfg' => '/jac_sw/hlsroot/OCScfg/lib',
-                      'errexit' => '/jac_sw/hlsroot/perl-JAC-ErrExit/lib',
                     );
 
 my @DYNLIB_STAR =
