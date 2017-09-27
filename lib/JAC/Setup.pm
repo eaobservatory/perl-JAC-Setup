@@ -88,7 +88,7 @@ our $VERSION = '0.05';
 
 my %DEFAULT_INC_LOCATIONS = (
                              'oracdr' => '/star/bin/oracdr/src/lib/perl5',
-                             'omp' => '/jac_sw/omp/msbserver',
+                             'omp' => '/jac_sw/omp/msbserver/lib',
                             );
 
 my %INC_LOCATIONS = ( 'omp' => \&override_omp_inc,
@@ -182,7 +182,7 @@ sub override_oracdr_inc {
 
 sub override_omp_inc {
   if (exists $ENV{OMP_DIR}) {
-    return $ENV{OMP_DIR};
+    return File::Spec->catdir($ENV{OMP_DIR}, 'lib');
   } else {
     return $DEFAULT_INC_LOCATIONS{omp};
   }
@@ -191,7 +191,7 @@ sub override_omp_inc {
 # Called if the environment variable has not been set
 sub override_omp_env {
   my $omp_dir = override_omp_inc();
-  return File::Spec->catdir( $omp_dir, "cfg" );
+  return File::Spec->catdir( $omp_dir, File::Spec->updir(), "cfg" );
 }
 
 
