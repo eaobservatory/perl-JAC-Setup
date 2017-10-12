@@ -89,17 +89,18 @@ our $VERSION = '0.05';
 my %DEFAULT_INC_LOCATIONS = (
                              'oracdr' => '/star/bin/oracdr/src/lib/perl5',
                              'omp' => '/jac_sw/omp/msbserver/lib',
+                             'hlsroot' => '/jac_sw/hlsroot',
                             );
 
 my %INC_LOCATIONS = ( 'omp' => \&override_omp_inc,
                       'oracdr' => \&override_oracdr_inc,
                       'its' => '/jac_sw/itsroot/install/common/lib/site_perl',
                       'drama' => '/jac_sw/drama/CurrentRelease/lib/site_perl',
-                      'archiving' => '/jac_sw/hlsroot/perl-JCMT-DataVerify/lib',
-                      'hdrtrans' => '/jac_sw/hlsroot/perl-Astro-FITS-HdrTrans/lib',
-                      'jsa' => '/jac_sw/hlsroot/perl-JSA/lib',
-                      'ocsq' => '/jac_sw/hlsroot/ocsq/lib',
-                      'ocscfg' => '/jac_sw/hlsroot/OCScfg/lib',
+                      'archiving' => override_hls_inc('perl-JCMT-DataVerify/lib'),
+                      'hdrtrans' => override_hls_inc('perl-Astro-FITS-HdrTrans/lib'),
+                      'jsa' => override_hls_inc('perl-JSA/lib'),
+                      'ocsq' => override_hls_inc('ocsq/lib'),
+                      'ocscfg' => override_hls_inc('OCScfg/lib'),
                     );
 
 my @DYNLIB_STAR =
@@ -185,6 +186,16 @@ sub override_omp_inc {
     return File::Spec->catdir($ENV{OMP_DIR}, 'lib');
   } else {
     return $DEFAULT_INC_LOCATIONS{omp};
+  }
+}
+
+sub override_hls_inc {
+  my $subdir = shift;
+  return sub {
+    my $hlsroot = exists $ENV{'HLS_DIR'}
+        ? $ENV{'HLS_DIR'}
+        : $DEFAULT_INC_LOCATIONS{'hlsroot'};
+    return File::Spec->catdir($hlsroot, $subdir);
   }
 }
 
