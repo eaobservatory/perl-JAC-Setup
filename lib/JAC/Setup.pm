@@ -211,12 +211,16 @@ sub add_ld_lib_path {
 
   my ( $prefix, $suffix ) = @_;
 
+  my @existing = ();
+  @existing = split( ':', $ENV{'LD_LIBRARY_PATH'} )
+    if exists $ENV{'LD_LIBRARY_PATH'} && defined $ENV{'LD_LIBRARY_PATH'};
+
   my %seen;
   return
     join ':',
       grep !$seen{ $_ }++,
         @$prefix,
-        split( ':', $ENV{'LD_LIBRARY_PATH'} ),
+        @existing,
         @$suffix;
 }
 
