@@ -116,11 +116,11 @@ my %ENVIRONMENT = ( 'omp' => { 'OMP_CFG_DIR' => \&override_omp_env },
 
 my %ADD_ENVIRONMENT = ( 'star-dynlib'   =>
                           { 'LD_LIBRARY_PATH' =>
-                              sub { add_ld_lib_path( \@DYNLIB_STAR ) }
+                              sub { add_ld_lib_path( \@DYNLIB_STAR, [] ) }
                           },
                         'sybase-dynlib' =>
                           { 'LD_LIBRARY_PATH' =>
-                              sub { add_ld_lib_path( undef, @DYNLIB_SYB ) }
+                              sub { add_ld_lib_path( [], \@DYNLIB_SYB ) }
                           },
                       );
 
@@ -209,17 +209,15 @@ sub override_omp_env {
 # Add dynamic library paths, before and/or after the any of existing ones,
 sub add_ld_lib_path {
 
-  my ( $prefix, @suffix ) = @_;
-
-  my @prefix = ( $prefix && ref $prefix ? @{ $prefix } : () );
+  my ( $prefix, $suffix ) = @_;
 
   my %seen;
   return
     join ':',
       grep !$seen{ $_ }++,
-        @prefix,
+        @$prefix,
         split( ':', $ENV{'LD_LIBRARY_PATH'} ),
-        @suffix;
+        @$suffix;
 }
 
 =head1 AUTHORS
