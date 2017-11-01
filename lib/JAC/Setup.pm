@@ -64,6 +64,10 @@ Adds OCS queue library path.
 
 Adds OCS config library path.
 
+=item * ukirtseq
+
+Adds UKIRT::Sequence library path.
+
 =item * star-dynlib
 
 Prepends dynamic library paths for /star libraries in LD_LIBRARY_PATH
@@ -101,6 +105,7 @@ my %INC_LOCATIONS = ( 'omp' => \&override_omp_inc,
                       'jsa' => override_hls_inc('perl-JSA/lib'),
                       'ocsq' => override_hls_inc('ocsq/lib'),
                       'ocscfg' => override_hls_inc('OCScfg/lib'),
+                      'ukirtseq' => override_hls_inc('perl-UKIRT-Sequence/lib'),
                     );
 
 my @DYNLIB_STAR =
